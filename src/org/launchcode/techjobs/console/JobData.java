@@ -76,7 +76,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -124,5 +124,42 @@ public class JobData {
             e.printStackTrace();
         }
     }
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value){
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        //Populates jobs---------------------------
+        for (HashMap<String, String> row : allJobs) {
+            if (row.toString().toLowerCase().contains(value.toLowerCase())) {
+                jobs.add(row);
+            }
+        }
+
+        //removes duplicates from jobs-------------
+        int i = 0;
+        for (HashMap<String, String> row : jobs){
+            int j = 0;
+            int count = 0;
+            String testRow = jobs.get(i).toString();
+
+            for (j = 0; j < jobs.size() - 1; j++){
+                if (testRow.equals(jobs.get(j).toString()) && count == 0){
+                    count++;
+                } else if (testRow.equals(jobs.get(j).toString()) && count > 0) {
+                    jobs.remove(j);
+                }
+            }
+
+            i++;
+        }
+        return jobs;
+    }
+
+
+
 
 }
