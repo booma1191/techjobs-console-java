@@ -134,28 +134,37 @@ public class JobData {
 
         //Populates jobs---------------------------
         for (HashMap<String, String> row : allJobs) {
+            for (String key : row.keySet()) {
+                String aValue = row.get(key);
+                if (aValue.toLowerCase().contains(value.toLowerCase())){
+                    jobs.add(row);
+                    break;
+                }
+            }
+
+
             if (row.toString().toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
 
         //removes duplicates from jobs-------------
-        int i = 0;
-        for (HashMap<String, String> row : jobs){
-            int j = 0;
-            int count = 0;
-            String testRow = jobs.get(i).toString();
-
-            for (j = 0; j < jobs.size() - 1; j++){
-                if (testRow.equals(jobs.get(j).toString()) && count == 0){
-                    count++;
-                } else if (testRow.equals(jobs.get(j).toString()) && count > 0) {
-                    jobs.remove(j);
-                }
-            }
-
-            i++;
-        }
+//        int i = 0;
+//        for (HashMap<String, String> row : jobs){
+//            int j = 0;
+//            int count = 0;
+//            String testRow = jobs.get(i).toString();
+//
+//            for (j = 0; j < jobs.size() - 1; j++){
+//                if (testRow.equals(jobs.get(j).toString()) && count == 0){
+//                    count++;
+//                } else if (testRow.equals(jobs.get(j).toString()) && count > 0) {
+//                    jobs.remove(j);
+//                }
+//            }
+//
+//            i++;
+//        }
         return jobs;
     }
 
